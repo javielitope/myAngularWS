@@ -1,0 +1,23 @@
+<html>
+   <head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+</head>
+<body ng-app>
+	<ul ng-controller="WorldCtrl">
+		<li ng-repeat="country in countries"> {{country.name}} has population of {{country.population}}, {{worldsPercentage(country.population) | number:4}} % of the World's </li>
+		<hr>
+		World's population: {{population}} millions </ul>
+	<script type="text/javascript">
+		var WorldCtrl = function ($scope) {
+   		$scope.population = 7000;
+   		$scope.countries = [
+          {name: 'France', population: 63.1},
+          {name: 'United Kingdom', population: 61.8}
+		];
+		$scope.worldsPercentage = function (countryPopulation) { 
+			return (countryPopulation / $scope.population)*100;
+		};
+		};	
+	</script>
+</body>
+</html>
