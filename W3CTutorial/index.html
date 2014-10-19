@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html data-ng-app="">
+<head>
+	<title>AngularJS Tutorial W3CSchool</title>
+</head>
+<body>
+	<div ng-controller="personController">
+		Filtro Currency:<br/>
+		Cantidad: <input type="number" ng-model="quantity">
+		Precio: <input type="number" ng-model="price">
+		<p>Total = {{ (quantity * price) | currency }}</p>
+
+		Filtro sobre listado<br/>
+		Nombre: <input type="text" ng-model="name">
+		<p>Lista de clientes</p>
+		<ul>
+		  <li ng-repeat="x in names | filter: name | orderBy:'country'">
+		    {{ x.name + ', ' + x.country }}
+		  </li>
+		</ul>
+	</div>
+	<div ng-controller="customersController"> 
+		<table>
+		  <tr ng-repeat="x in names | orderBy : 'Country'">
+		    <td>{{ x.Name }}</td>
+		    <td>{{ x.Country }}</td>
+		  </tr>
+		</table>
+	</div>
+    <style>
+		table, th , td {
+		  border: 1px solid grey;
+		  border-collapse: collapse;
+		  padding: 5px;
+		}
+		table tr:nth-child(odd) {
+		  background-color: #f1f1f1;
+		}
+		table tr:nth-child(even) {
+		  background-color: #ffffff;
+		}
+	</style>
+	<script src="./Controllers/personController.js"></script>
+	<script src="./Controllers/customerController.js"></script>		
+	<script src="./Scripts/angular.min.js"></script>
+</body>
+</html>

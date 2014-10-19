@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+<link rel="stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+
+<body ng-controller="userController">
+
+	<div class="container">
+	  <div ng-include="'partial_myUsers_List.html'"></div>
+	  <div ng-include="'partial_myUsers_Form.html'"></div>
+	</div>
+
+	<script src="./Scripts/angular.min.js"></script>
+  	<script src="./Controllers/userController.js"></script>
+</body>

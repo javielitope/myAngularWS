@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div ng-app="modularApp" ng-controller="modularController">
+
+	<form novalidate>
+		<!-- The HTML attribute novalidate is used to disable default browser validation. -->
+	    First Name:<br>
+	    <input type="text" ng-model="user.firstName"><br>
+	    Last Name:<br>
+	    <input type="text" ng-model="user.lastName">
+	    <br><br>
+	    <button ng-click="reset()">RESET</button>
+	 </form>
+	 <p>form = {{ user.firstName + user.lastName }}</p>
+	 <p>master = {{ master.firstName + master.lastName}}</p>
+</div>
+
+	<script src="./Scripts/angular.min.js"></script>
+	<script src="./Modules/modularApp.js"></script>		
+	<script src="./Controllers/modularController.js"></script>
+	
+</body>
+</html>
