@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html data-ng-app="">
+<head>
+	<title>Using Filters</title>
+</head>
+<body>
+	<div class="container" data-ng-init="customers=[{name:'Dave', city:'Granada'},{name:'Napur',city:'Malaga'},{name:'Heedy',city:'Sevilla'},{name:'Shriva',city:'Madrid'}]">
+		<h3>Using Filters</h3>
+		<input type="text" data-ng-model="nameText">
+		<ul>
+			<li data-ng-repeat=" cust in customers | filter:nameText | orderBy:'name'">
+				{{ cust.name | uppercase }} - {{cust.city}}</li>
+		</ul>
+	</div>
+	<script src="./Scripts/angular.min.js"></script>
+</body>
+</html>
