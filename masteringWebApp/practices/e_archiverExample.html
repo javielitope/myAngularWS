@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="myArchiver">
+  <div class="container" ng-controller="TextAreaWithLimitCtrl">
+    <div class="row">
+	</div>
+	<div class="row">
+	</div>
+	<br>
+	<div class="row">	
+	</div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+  <script>
+    angular.module('myArchiver', [])
+      .controller('TextAreaWithLimitCtrl', ['$scope', function ($scope) {
+        	$scope.message = "";
+        	MAX_LEN = 100;
+        	WARN_THRESHOLD = 10;
+        	$scope.charactersRem = function(){
+       			return Math.max(MAX_LEN - $scope.message.length, 0);
+			};
+			$scope.hasValidLength = function(){
+       			return MAX_LEN >= $scope.message.length;
+			};
+			$scope.shouldWarn = function (){
+				return $scope.charactersRem() < WARN_THRESHOLD;
+			};
+			$scope.clear = function() {
+				$scope.message = "";
+			};
+			$scope.send = function(){
+				$scope.message = "";
+			};
+      }]);
+
+    myArchiver.constant('MAX_LEN', 10);  
+    myArchiver.factory('notificationsService',function(notificationsArchive, MAX_LEN){
+		var notifications = [];
+		return {
+			push:function (notification) {
+				var notificationToArchive;
+				var newLen = notifications.unshift(notification);
+				//push method can rely on the closure scope now!
+				if (newLen > MAX_LEN) {
+					notificationToArchive = this.notifications.pop();
+					notificationsArchive.archive(notificationToArchive);
+				}
+			},
+			// other methods of the NotificationsService
+		};
+	}
+  </script>
+</body>
+</html>

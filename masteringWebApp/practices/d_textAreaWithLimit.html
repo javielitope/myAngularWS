@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="myApp">
+  <div class="container" ng-controller="TextAreaWithLimitCtrl">
+    <div class="row">
+		<span ng-class="{'text-warning' : shouldWarn()}">
+			Remaining: {{charactersRem()}}
+		</span>
+	</div>
+	<div class="row">
+		<textarea ng-model="message">{{message}}</textarea>
+	</div>
+	<br>
+	<div class="row">	
+		<button ng-disabled="!hasValidLength()" ng-click="send()">Send</button>
+		<button ng-click="clear()">Clear</button>
+	</div>
+  </div>
+  <script src="https://code.angularjs.org/1.2.26/angular.js"></script>
+  <script>
+    angular.module('myApp', [])
+      .controller('TextAreaWithLimitCtrl', ['$scope', function ($scope) {
+        	$scope.message = "";
+        	MAX_LEN = 100;
+        	WARN_THRESHOLD = 10;
+        	$scope.charactersRem = function(){
+       			return Math.max(MAX_LEN - $scope.message.length, 0);
+			};
+			$scope.hasValidLength = function(){
+       			return MAX_LEN >= $scope.message.length;
+			};
+			$scope.shouldWarn = function (){
+				return $scope.charactersRem() < WARN_THRESHOLD;
+			};
+			$scope.clear = function() {
+				$scope.message = "";
+			};
+			$scope.send = function(){
+				$scope.message = "";
+			};
+      }]);
+  </script>
+</body>
+</html>
