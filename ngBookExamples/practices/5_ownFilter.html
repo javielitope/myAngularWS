@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="myApp.filters">
+	<div class="container">
+		<div class="row">
+			<span> {{ 'ginger loves dog treats' | lowercase | capitalize }} </span>
+		</div>
+	</div>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>	
+  	<script>
+  		/*
+		Now, inside of our {{ previewText }} body, we can use {{ to }} as a variable in the text and allow
+		it to be live-updated along with the rest of the text
+		*/	
+		angular.module('myApp.filters', [])
+			.filter('capitalize', function(){
+				return function(input){
+					//input will be the string we pass in
+					if(input){
+						return input[0].toUpperCase() + input.slice(1);
+					}
+				}
+			});
+  	</script>
+</body>
+</html>

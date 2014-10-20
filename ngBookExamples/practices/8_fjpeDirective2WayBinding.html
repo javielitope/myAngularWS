@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="myAppDirective">
+	<div class="container">
+		<div class="row">
+			<!-- Tomando el ejemplo 7, damos un paso más allá e implementamos una etiqueta que sea capaz de recoger los valores introducidos en otras etiquetas. Para ello, debemos implementar el 2BindDirection. -->
+			<input type="text" ng-model="theirURL" placeholder="url"></input>
+			<div fjpe-directive my-param-url="{{theirURL}}" my-param-link-text="{{'Ir al sitio ' + theirURL}}">
+			</div>
+		</div>
+	</div>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js">
+  	</script>	
+  	<script>
+		/* Custom Tag: With the .directive() method we can register new directives by providing a name as a string and function. The name of the directive should always be pascalCased, and the function we provide should return an object. */
+		var myApp = angular.module('myAppDirective', []);
+		myApp.directive('fjpeDirective', function(){
+			return {
+				/* we want our directive to be invoked if it is an attribute (A). */
+				restrict: 'A',
+				/* remove our custom element from the generated DOM completely */
+				replace: true,
+				/* Ambito aislado y no heredable, al que sólo se tiene acceso en el template y en el posible controlador definido dentro de la directiva */
+				scope: {
+					myUrl: "@myParamUrl", // binding strategy
+					myLinkText: "@myParamLinkText" // binding strategy
+				},
+				/* template mean */
+				template: '\
+				<div>\
+				<label>My Url Field:</label>\
+				<input type="text"\
+				ng-model="myUrl" />\
+				<a href="{{myUrl}}">{{myLinkText}}</a>\
+				</div>\
+				'
+			}
+		});				
+  	</script>
+</body>
+</html>

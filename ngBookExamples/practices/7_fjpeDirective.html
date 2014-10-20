@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="myAppDirective">
+	<div class="container">
+		<div class="row">
+			<!-- Declaring a directive is the act of placing a function within our HTML as an element, attribute, class, or comment.
+			The following are valid formats for declaring the directive we built above: 
+			<fjpe-directive="someExpression"></fjpe-directive> (E) Element
+			<div fjpe-directive="someExpression"></div> (A) Attribute
+			<div class="fjpe-directive : someExpression""></div> (C) class
+			A good rule of thumb to follow is to always declare our directive as an attribute (as we’ve done). It’ll save us some hassle later.
+			A noteworthy exception is when extending built-in HTML tags.
+			 -->
+			<fjpe-directive></fjpe-directive>
+			<hr>
+			<div fjpe-parameterized my-url="http://www.elpais.com" my-link-text="Ir a elpais.com">
+			</div>
+		</div>
+	</div>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>	
+  	<script>
+		/* Custom Tag: With the .directive() method we can register new directives by providing a name as a string and function. The name of the directive should always be pascalCased, and the function we provide should return an object. */
+		var myApp = angular.module('myAppDirective', []);
+		myApp.directive('fjpeDirective', function(){
+				return {
+					/* we want our directive to be invoked if it is an element (E), an attribute (A), a class (C) or a comment (M). */
+					restrict: 'EAC',
+					/* remove our custom element from the generated DOM completely */
+					replace: true,
+					/* template mean */
+					template: '<a href="http://google.com"> Click me to go to Google</a>'
+				}
+			});
+		myApp.directive('fjpeParameterized', function(){
+				return {
+					/* we want our directive to be invoked if it is an element (E), an attribute (A), a class (C) or a comment (M). */
+					restrict: 'A',
+					/* remove our custom element from the generated DOM completely */
+					replace: true,
+					/* Ámbito aislado y no heredable, al que sólo se tiene acceso en el template y en el posible controlador definido dentro de la directiva */
+					scope: {
+						myUrl: "@myUrl", // binding strategy
+						myLinkText: "@myLinkText" // binding strategy
+					},
+					/* template mean */
+					template: '<a href="{{myUrl}}"> {{myLinkText}}</a>'
+				}
+			});				
+  	</script>
+</body>
+</html>

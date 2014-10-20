@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+</head>
+<body ng-app ng-controller="myFirstController">
+	Say hello to: <input type="text" ng-model="person.name" placeholder="World"><br>
+	<h1>Hello, {{ person.name }}!</h1>
+<script>
+	var myFirstController = function($scope){
+		$scope.person ={
+			name: "World"
+		};
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="myApp">
+	<div ng-controller="MyController">
+		<div class="row">
+			To: <input ng-model="to" type="email" placeholder="Recipient"></input>
+		</div>
+		<div class="row">
+			Email body <textarea ng-model="emailBody"></textarea>
+		</div>
+		<div class="row">
+			<pre>__ previewText __</pre>
+		</div>
+	</div>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>	
+  	<script>
+  		/*
+		Now, inside of our __ previewText __ body, we can use __ to __ as a variable in the text and allow it to be live-updated along with the rest of the text
+		*/	
+		angular.module('myApp', ['emailParser'])
+			.controller('MyController', ['$scope', 'EmailParser',
+				function($scope, EmailParser) {
+					// Set up a watch
+					$scope.$watch('emailBody', function(body) {
+						if (body) {
+							$scope.previewText = EmailParser.parse(body , {to: $scope.to});
+						}
+					});
+				}]);
+		/*
+		If it’s desirable to use different beginning and ending symbols in our text, we can modify them by configuring the $interpolateProvider.
+		*/
+		angular.module('emailParser', [])
+			.config(['$interpolateProvider',
+				function($interpolateProvider) {
+					$interpolateProvider.startSymbol("__");
+					$interpolateProvider.endSymbol("__");
+				}])
+			.factory('EmailParser', ['$interpolate',
+				function($interpolate){
+					// a service to handle parsing
+					return {
+						parse : function(text, context) {
+							var template = $interpolate(text);
+							return template(context);
+						}
+					}
+				}]);
+  	</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="app">
+	<div ng-controller="ParentController">
+		<div ng-controller="ChildController">
+			<a ng-click="sayHello()">Say hello</a>
+		</div>
+		{{ person }}
+	</div>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>	
+  	<script>
+  		var app = angular.module('app',[]);
+		app.controller('ParentController', function($scope) {
+			$scope.person = {greeted: false};
+		});
+		app.controller('ChildController', function($scope) {
+			$scope.sayHello = function() {
+				$scope.person.name = "Ari Lerner";
+				$scope.person.greeted = true;
+			}
+		});
+  	</script>
+</body>
+</html>

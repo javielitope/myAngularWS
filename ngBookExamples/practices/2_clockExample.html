@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body ng-app ng-controller="myClockController">
+	<h5>{{ clock.now | date : 'medium'}}</h5>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>	
+  <script>
+	var myClockController = function($scope) {
+		var updateClock = function(){
+			$scope.clock = {
+				now: new Date()
+			};
+		};
+		/* Syntax setInterval(function,milliseconds,lang)
+		function	Required. The function that will be executed
+		milliseconds	Required. The intervals (in milliseconds) on how often to execute the code
+		lang	Optional. JScript | VBScript | JavaScript
+
+		Return Value
+		An integer with the ID value of the timer that is set. Use this value with the clearInterval() method to cancel the timer. */
+		setInterval(function(){
+			$scope.$apply(updateClock)
+		},1000);
+		updateClock();
+	};
+  </script>
+</body>
+</html>
